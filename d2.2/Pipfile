@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==2.2"
+uvicorn = "*"
+daphne = "*"
+hypercorn = "*"
+gunicorn = "*"
+
+[dev-packages]
+pylama = "*"
+
+[requires]
+python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
+
+[packages.twisted]
+extras = [ "http2", "tls",]

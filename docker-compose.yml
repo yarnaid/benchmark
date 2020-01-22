@@ -1,0 +1,52 @@
+version: '3.3'
+
+services:
+  falcon:
+    build: ./falcon
+    command: gunicorn main:app -b 0.0.0.0:8000 --workers 2
+    volumes:
+      - ./falcon:/app
+    ports:
+      - 8000:8000
+
+
+  d3:
+    build: ./d3
+    command: gunicorn -k uvicorn.workers.UvicornWorker itemer.asgi:application -b 0.0.0.0:8000 --workers 2
+    volumes:
+      - ./d3:/app
+    ports:
+      - 8001:8000
+
+  flask:
+    build: ./flask
+    command: gunicorn main:app -b 0.0.0.0:8000 --workers 2
+    volumes:
+      - ./flask:/app
+    ports:
+      - 8002:8000
+
+  d3-dev:
+    build: ./d3
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./d3:/app
+    ports:
+      - 8003:8000
+
+  d2.2:
+    build: ./d2.2
+    command: gunicorn itemer.wsgi:application -b 0.0.0.0:8000 --workers 2
+    volumes:
+      - ./d2.2:/app
+    ports:
+      - 8004:8000
+
+  express:
+    build: ./express
+    command: node index.js
+    volumes:
+      - ./express:/app
+    ports:
+      - 8005:8000
+
